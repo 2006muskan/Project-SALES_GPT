@@ -1,0 +1,34 @@
+import google.generativeai as genai
+import os
+
+# --- Configuration ---
+# Replace "YOUR_API_KEY" with your actual key
+# For better security, it's recommended to use an environment variable
+# genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+try:
+    genai.configure(api_key="AIzaSyDWp6s0K0idClbk6o-gvlyXckGfQw16BZ0")
+    print("✅ Configuration successful!")
+except Exception as e:
+    print(f"❌ Configuration failed: {e}")
+    exit()
+
+# --- Model Initialization and Test ---
+try:
+    print("⚙  Initializing the Gemini Pro model...")
+    model = genai.GenerativeModel('gemini-2.5-flash')
+
+    print("🚀 Sending a test prompt...")
+    response = model.generate_content("Who is Chaitanya Mahaprabhu.")
+
+    # --- Verification ---
+    if response.text:
+        print("\n🎉 API Key is working! Here's your fun fact:")
+        print("-------------------------------------------------")
+        print(response.text)
+        print("-------------------------------------------------")
+    else:
+        print("\n❌ Verification failed. The response was empty.")
+
+except Exception as e:
+    print(f"\n❌ An error occurred: {e}")
+    print("\nYour API key might be invalid or there could be an issue with the service.")
